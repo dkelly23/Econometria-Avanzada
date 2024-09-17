@@ -1,0 +1,81 @@
+\chapter{Repaso de Estadística}
+
+\section{Introducción}
+
+Sea $y$ una variable aleatoria continua con P.D.F. (función de densidad) dada por $f(y,\theta)$:
+
+\bigskip
+\defi{Muestra Independiente e Idénticamente Distribuida}{
+    Sí ${Y_1,\hdots,Y_n}$ es una sucesión de variables aleatorias independientes con P.D.F. común $f(Y_i)$; entonces ${Y_1,\hdots,Y_n}$ es una muestra \textbf{Independiente y Idénticamente Distribuida}. 
+}
+
+\bigskip
+Dado un vector de variables independientes $\x=(x_1,\hdots,\x_k)$, podemos definir la esperanza condicional de $y$ como: $\E{y|\x}$. La esperanza condicional de $y$ dado $\x_0$ (un valor particular de $\x$) está dada por 
+\eq{
+    \E{y|\x=\x_0} = \dfrac{1}{f_\x (\x_0)}\int_{-\infty}^{\infty} y f_{\x,y}(y,\x_0)
+}
+
+\bigskip
+Si la esperanza de $y$ es finita ($\E{y|x_1,\hdots,x_k}<\infty$), podemos decir que toma una forma funcional específica:
+\eq{
+    \E{y|x_1,\hdots,x_k}=\mu(x_1,\hdots,x_k) \text{ con } \mu:\R^k \to \R
+}
+
+\bigskip
+\defi{Ley de Esperanzas Iteradas}{
+    Sea $\mn{w}$ un vector aleatorio. A partir de este vector, definimos una función $\x=f(\mn{w})$ ($\x$ incluso podría ser solo un subconjunto de $\mn{w}$). Esto implica que al conocer los valores de $\mn{w}$, conocemos todos los valores de $\x$. La \textbf{Ley de Esperanzas Iteradas} entonces dice que:
+    \eq{\E{y|\x}=\E{\E{y|\mn{w}}|\x}}
+    Una forma alternativa de frasear la \textbf{LEI} tiene que ver con las medias. Definimos $\mu_1(\mn{w})\equiv \E{y|\mn{w}}$ y  $\mu_2(\x)\equiv \E{y|\mn{x}}$. La \textbf{LEI} implica que podemos obtener el valor de $\mu_2(\x)$ obteniendo el valor esperado de $\mu_1(\w)$ dado el vector $\mn{w}$:
+    \eq{\mu_2(\x)=\E{\mu_1(\mn{w})|\x}}
+    Igualmente, la \textbf{LEI} tiene otra implicación parecida a (1.3):
+    \eq{\E{y|\x}=\E{\E{y|\x}|\mn{w}}}
+}
+
+\bigskip
+De acuerdo con la teoría que respalde la estimación, $\mu(\cdot)$ puede ser lineal o no, y refleja el cambio en el valor esperado de $y$ respecto a un cambio en $x_j$, es decir, el efecto parcial:
+\eq{
+    \D \E{y|\x} \approx \pd{ \mu(\x) }{ x_j } \cdot \D x_j
+}
+
+\bigskip
+La derivada de $\mu(\x)$ con respecto a $x_j$ se puede interpretar con el efecto parcial de un cambio unitario en $x_j$ sobre la esperanza condicional ($\D x_j=1$). \\
+
+Un caso particularmente relevante en la teoría económica es el caso de la elasticidad, en dónde los cambios se miden en términos porcentuales (i.e. el efecto de un cambio porcentual en $x_j$ sobre un cambio porcentual en $y$). La elasticidad se define como:
+\eq{
+    e_{y,x_j} = \pd{ \mu(\x) }{ x_j } \cdot \dfrac{ x_j }{ \mu(\x) }
+}
+
+\bigskip
+Podemos reescribir (1.7) como: \\
+
+\begin{array}{llllll}
+    & &  e_{y,x_j} = \pd{ \mu(\x) }{ x_j } \cdot \dfrac{ x_j }{ \mu(\x) } = 
+    \dfrac{ \dfrac{ 1 }{ \mu(\x) } \cdot \pd{ \mu(\x) }{ x_j } }{ \dfrac{ 1 }{ x_j } } = \dfrac{ \pd{ \log \mu(\x) }{ x_j } }{ \pd{ \log x_j }{ x_j } } = \pd{ \log \mu(\x) }{ \log \x_j }
+\end{array}
+
+\bigskip
+Esto es, podemos reescribir la elasticidad como el cociente de las derivadas de los logaritmos naturales de $\mu(\x)$ y $x_j$:
+\eq{
+    e_{y,x_j}=\pd{\log \mu(\x)}{\log x_j}
+}
+
+
+\section{Especificación del Error}
+
+Si $y$ es una Variable Aleatoria, podemos escribirla:
+\eq{
+    y=\E{y|\x}+\varepsilon
+}
+
+\bigskip
+Dónde $\varepsilon$ es un término de error que captura todos los factores no observables que afectan a $y$. En ese sentido, los supuestos de identificación son en realidad supuestos sobre $\varepsilon$. Normalmente suponemos:
+\eq{
+    \E{\varepsilon | \x} = 0 \hspace{1cm} \text{\blue{(Media Condicional Cero)}}
+}
+
+\begin{enumerate}
+    \item $\E{\varepsilon}=0$
+
+    Por la Ley de Esperanzas Iteradas
+    
+\end{enumerate}
