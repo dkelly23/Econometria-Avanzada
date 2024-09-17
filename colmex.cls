@@ -210,8 +210,10 @@
 \newcommand\plim[1]{\text{plim}\left[#1\right]}
 \newcommand\E[1]{\text{E}\left[#1\right]}
 \newcommand\var[1]{\text{Var}\left[ #1 \right]}
+\newcommand\cov[1]{\text{Cov}\left[ #1 \right]}
 \newcommand\eq[1]{\begin{equation} #1 \end{equation}}
 \newcommand\un[2]{\underset{#2}{#1}}
+\newcommand\ov[2]{\overset{#2}{#1}}
 \newcommand\mn[1]{\mathbf{#1}}
 
 % Variable Commands
@@ -225,6 +227,7 @@
 \newcommand{\T}[0]{\Theta}
 \renewcommand{\L}[0]{\mathcal{L}}
 \renewcommand{\l}{\lambda}
+\newcommand{\e}[0]{\varepsilon}
 \newcommand\R[0]{\mathbb{R}}
 
 % Vectors and Matrices
@@ -308,22 +311,6 @@
 		#2
 	\end{supuesto}
 }
-
-\ifesp
-\renewcommand\proof[1]{
-	\begin{demostracion}
-		\textbf{Demostración:} #1
-	\end{demostracion}
-}
-\fi
-
-\ifeng
-\renewcommand\proof[1]{
-	\begin{demostracion}
-		\textbf{Proof:} #1
-	\end{demostracion}
-}
-\fi
 
 % ______________________________________________________________________________
 % Simpler Math Arrays

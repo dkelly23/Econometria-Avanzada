@@ -48,10 +48,10 @@ Un caso particularmente relevante en la teoría económica es el caso de la elas
 \bigskip
 Podemos reescribir (1.7) como: \\
 
-\begin{array}{llllll}
+$\begin{array}{llllll}
     & &  e_{y,x_j} = \pd{ \mu(\x) }{ x_j } \cdot \dfrac{ x_j }{ \mu(\x) } = 
     \dfrac{ \dfrac{ 1 }{ \mu(\x) } \cdot \pd{ \mu(\x) }{ x_j } }{ \dfrac{ 1 }{ x_j } } = \dfrac{ \pd{ \log \mu(\x) }{ x_j } }{ \pd{ \log x_j }{ x_j } } = \pd{ \log \mu(\x) }{ \log \x_j }
-\end{array}
+\end{array}$
 
 \bigskip
 Esto es, podemos reescribir la elasticidad como el cociente de las derivadas de los logaritmos naturales de $\mu(\x)$ y $x_j$:
@@ -62,7 +62,7 @@ Esto es, podemos reescribir la elasticidad como el cociente de las derivadas de 
 
 \section{Especificación del Error}
 
-Si $y$ es una Variable Aleatoria, podemos escribirla:
+Si $y$ es una Variable Aleatoria, podemos escribirla como:
 \eq{
     y=\E{y|\x}+\varepsilon
 }
@@ -73,9 +73,193 @@ Dónde $\varepsilon$ es un término de error que captura todos los factores no o
     \E{\varepsilon | \x} = 0 \hspace{1cm} \text{\blue{(Media Condicional Cero)}}
 }
 
+\bigskip
+\textbf{Implicaciones:}
+
 \begin{enumerate}
     \item $\E{\varepsilon}=0$
-
-    Por la Ley de Esperanzas Iteradas
-    
 \end{enumerate}
+
+\proof{
+Por la Ley de Esperanzas Iteradas:
+$$\E{\varepsilon}=\E{\E{\varepsilon|\x}}$$
+En tanto la esperanza condicional de $\varepsilon$ es cero, la esperanza no condicionada también lo es. Esto es una aplicación de la \textit{Ecuación 1.3}.
+}
+
+\bigskip
+\begin{enumerate}[resume]
+    \item $\cov{\varepsilon, x_j}=0, \hspace{1cm} \forall x_j \in \x$
+\end{enumerate}
+
+\proof{
+Desarrollamos la covarianza para obtener: \\
+
+\begin{array}{llllllll}
+     &  & \cov{\varepsilon, x_j} & = & \E{\varepsilon\cdot x_j} - \E{\varepsilon} \E{x_j} \\
+     \\
+     &  & & = & \E{\varepsilon\cdot x_j}
+\end{array}
+
+\bigskip
+Igualmente haciendo uso de la \textit{Ecuación 1.3} obtenemos: \\
+
+\begin{array}{llllllll}
+     &  & \E{\varepsilon\cdot x_j} & = & \E{\E{\varepsilon\cdot x_j|\x}} \\
+     \\
+     &  & & = & \E{x_j\E{\varepsilon|\x}} = 0 
+\end{array}
+
+\bigskip
+En consecuencia, la covarianza entre $x_j$ (un elemento genérico de $\x$) y $\varepsilon$ es siempre igual a cero.
+}
+
+\bigskip
+\begin{enumerate}[resume]
+    \item $\cov{\varepsilon, f(x_j)}=0, \hspace{0.5cm} \forall x_j \in \x$ \hspace{1cm} (El argumento es estrictamente análogo al anterior).
+\end{enumerate}
+
+\bigskip
+Normalmente, asumir que el error posee Media Condicional Cero (\textit{Ecuación 1.10}) es estrictamente equivalente a decir que el modelo está bien identificado. Esto quiere decir que, dados los valores de las variables independientes capturadas en $\x$, el error no posee ninguna información adicional que capture relaciones entre las variables del modelo. \\
+
+Sin embargo, esta es una suposición muy fuerte, por lo que normalmente suponemos que únicamente (2.) y (3.) se cumplen. Hago notar que esto no implica que el supuesto de Media Condicional Cero se cumpla. 
+
+\section{Proyecciones Lineales}
+
+Hemos establecido ya que el problema de interés es estimar la Esperanza Condicional (\textit{Ecuación 1.2}), sin embargo, la forma funcional desconocida impone problemas en la estimación (tanto estadísticos como computacionales). Para transformar esta Esperanza Condicional en un modelo que podamos estimar, utilizamos la Proyección Lineal de $y$ sobre $\x$.\\
+
+\defi{Proyección Lineal}{
+La proyección lineal de $y$ sobre el espacio generado por el vector $\x=(1,x_2,\hdots,x_K)$ está dada por una combinación lineal de \x:
+\eq{
+    L(y|\x) = \dsum{i=1}{K}\delta_i x_i = \delta_1 + \delta_2 x_2 + \hdots + \delta_K x_K
+    }
+Dónde:
+\eq{
+    \d=\var{\x}^{-1}\cdot\cov{\x,y}
+    }
+    
+\bigskip
+En la \textit{Ecuación 1.12}, $\var{\x}$ es la matriz de varianza-covarianza de $\x$ (dimensión $K\times K$) y $\cov{\x,y}$ es el vector de covarianzas de $\x$ y $y$ (dimensión $K\times K$). Nótese que esta estimación es análoga al estimador por M.C.O. del vector de parámetros.
+}
+
+\bigskip
+En el estimador del vector de coeficientes de la proyección lineal:
+\begin{itemize}
+    \item El elemento $\lbrace i,j \rbrace$ de $\var{\x}$ es igual a $\cov{x_i,x_j}$.
+    \item El $i$-ésimo elemento de $\cov{\x,y}$ es $\cov{x_i,y}$.
+\end{itemize}
+
+\bigskip
+Supongamos que $\lbrace y,x_1,\hdot,x_K \rbrace$ es un conjunto de Variables Aleatorias con esperanza finita tal que $\E{y^2}<\infty$ y $\E{x_{j}^2}<\infty$, $\forall x_j \in \x$. En particular:
+\begin{itemize}
+    \item No hay restricciones conjuntas sobre la distribución de $\x$ y $y$.
+    \item $\var{\x}$ es una matriz de $K\times K$ no singular y positiva definida.
+\end{itemize}
+
+\bigskip
+Entonces, la Proyección Lineal de $y$ sobre $\x$ siempre existe y es única. Dado $L(y|\x)$, podemos reescribir $y$ como:
+\eq{
+    y=L(y|\x)+r
+}
+
+\bigskip
+La Proyección Lineal cumple propiedades análogas a las del estimador por M.C.O:
+\begin{itemize}
+    \item $\E{r}=0$
+    \item $\cov(r, x_j)=0$
+    \item $\E{r^2}<\infty$
+\end{itemize}
+
+
+\section{Teoría Asintótica}
+
+\defi{Convergencia en Probabilidad}{
+Una sucesión de Variables Aleatorias $\lbrace x_N:N=1,2,\hdots \rbrace$ converge en probabilidad a la constante $\a$ si para todo $\e>0$:
+\eq{
+    \text{Prob}(|x_N-\a|>\e) \to 0 \hspace{1cm} \text{cuando} \hspace{0.2cm} N\to\infty
+    }
+}
+
+\bigskip
+A la idea de Convergencia en Probabilidad se le llama también \textit{Probability Limit}:
+\eq{
+x_N \ov{\to}{P} \a \hspace{0.5cm} \text{o} \hspace{0.5cm} \plim{x_N}=\a 
+}
+
+\bigskip
+Es decir, cuando $N$ tiende a infinito, la probabilidad de que la sucesión esté arbitrariamente cerca de $\a$ tiende a 1.\\
+
+\teo{Teorema de Slutsky}{
+Sea $g:\R^K\to\R^J$ una función continua alrededor de $c\in\R^J$. Si $\x_N$ es una sucesión de Vectores Aleatorios de $K\times 1$ tal que $\plim{\x_N}=c$. Entonces:
+\eq{g(\x_N) \ov{\to}{P} g(c) \hspace{1cm} \text{cuando} \hspace{0.2cm} N\to\infty}
+\eq{\plim{g(\x_N)}=g(c)=g(\plim {\x_N})}
+}
+
+\bigskip
+El Teorema de Slutsky dice que bajo las condiciones de continuidad y convergencia establecidos antes, la convergencia en probabilidad funciona como un operador lineal. En particular, si $\a_N$ y $\b_N$ son estimadores de los parámetros $\a$ y $\b$ consistentes asintóticamente, es decir:
+\eq{
+    \plim{\a_N}=\a \hspace{0.5cm} \text{y} \hspace{0.5cm} \plim{\b_N}=\b
+}
+
+\bigskip
+En consecuencia:
+\begin{enumerate}
+    \item $\plim{\a_N+\b_N}=\a+\b$
+    \item $\plim{\a_N\cdot\b_N}=\a\cdot\b$
+    \item $\plim{\dfrac{\a_N}{\b_N}}=\dfrac{\a}{\b}$
+\end{enumerate}
+
+\bigskip
+\defi{Convergencia en Distribución}{
+Una sucesión de Variables Aleatorias $\lbrace x_N:N=1,2,\hdots \rbrace$ converge en distribución a la variable continua $x$ sí y solo sí:
+\eq{
+    F_N(\xi) \to F(\xi) \hspace{1cm} \text{cuando} \hspace{0.2cm} N\to\infty, \hspace{0.2cm} \forall \xi \in \R
+    }   
+Dónde $F_i(\cdot)$ es la C.D.F. de $x_n$ y $F(\cdot)$ es la C.D.F. de $x$.
+}
+
+\bigskip
+La convergencia en distribución se denota $x_N\ov{\to}{d}x$. Cuando $N\to\infty$, la distribución de $x_N$ tiende a la de $x$ (decimos también que se distribuye asintóticamente como $x$). Por ejemplo, cuando $x_N$ se distribuye asintóticamente normal la denotamos como:
+\eq{
+    x_N \ov{\to}{d} N(\mu,\sigma^2) \hspace{0.5cm} \text{o} \hspace{0.5cm} x_N \ov{\to}{a}N(\mu,\sigma^2)
+}
+
+\bigskip
+Supongamos que $\x_N$ es una sucesión de Vectores Aleatorios de $K\times 1$ tal que $\x_N\ov{\to}{d}\x$. Si $g:\R^K\to\R^J$ es una función continua, entonces:
+\eq{
+    g(\x_N) \ov{\to}{d} g(\x)
+}
+
+Es decir, la convergencia en distribución se mantiene entre funciones continuas. Los siguientes resultados giran en torno a la distribución asintótica de los estimadores de los momentos de una distribución.\\
+
+\teo{Ley de los Grandes Números}{
+Sea $\lbrace \w_i:i=1,2,\hdots \rbrace$ una sucesión de Vectores Aleatorios de $G\times 1$ i.i.d. con esperanza finita:
+$$\E{|w_{ig}|<\infty} \hspace{1cm} \text{para} \hspace{0.25cm} g=1, \hdots,  G$$
+
+\bigskip
+Entonces, la sucesión satisface la \textbf{Ley de los Grandes Números} (L.L.N.), es decir:
+\eq{\dfrac{1}{N}\dsum{i=1}{N}\w_i\ov{\to}{d}\mu_\w \hspace{0.5cm} \text{ dónde } \hspace{0.5cm} \mu_\w=E[\w_i]}
+}
+\bigskip
+
+\begin{teorema}{Teorema de Lindberg-Levy}
+Sea $\lbrace \w_i:i=1,2,\hdots \rbrace$ una sucesión de Vectores Aleatorios de $G\times 1$ i.i.d. con esperanza finita:
+\eq{\E{|w_{ig}|}<\infty \hspace{0.5cm} \text{ y } \hspace{0.5cm} E[\w_i]=0}
+
+\bigskip
+Entonces, la sucesión sigue el \textbf{Teorema del Limite Central} (C.L.T.), es decir:
+\eq{\dfrac{1}{\sqrt{N}}\dsum{i=1}{N}\w_i \hspace{0.2cm} \ov{\to}{d} \hspace{0.2cm} N(0,\var{w_i})}
+\end{teorema}
+
+\section{Propiedades Asintóticas de los Estimadores}
+
+\subsection{Consistencia}
+
+Sea $\lbrace \t_N:N=1,2,\hdots \rbrace$ una sucesión de estimadores del vector de parámetros $\t$, dónde $N$ es el tamaño muestral. Decimos que $\hat{\t}_N$ es un estimador \textbf{asintóticamente consistente} de $\t$ si para todo valor de $\t$:
+\eq{\plim{\hat{\t}_N}=\t \hspace{0.5cm} \text{cuando} \hspace{0.5cm} N\to\infty }
+
+\bigskip
+Es decir, conforme crece $N$ ($N\to\infty$), la distribución de $\hat{\t}_N$ está cada vez más centrada alrededor de $\t$. Nótese que la insesgadez del estimador $\hat{\t}_N$ en general no implica consistencia asintótica. Sin embargo, si $\E{\hat{\t}_N}$ y $\var{\hat{\t}_N}\to 0$ cuando $N\to \infty$, entonces $\plim{\hat{\t}_N}=\t$.
+
+\subsection{Normalidad}
+
+\subsection{Eficiencia}
