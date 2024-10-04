@@ -1,0 +1,22 @@
+\chapter{Herramientas Matemáticas}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+scale = 1.2,
+xmin = 0, xmax = 10,
+ymin = 0, ymax = 5,
+axis lines = left,
+xtick = \empty, ytick = \empty,
+clip = false,
+]
+% Labels
+\node [right] at (current axis.right of origin) {$x$};
+\node [above] at (current axis.above origin) {$y$};
+\addplot[domain = 0:10, restrict y to domain = 0:10, samples =
+400, color = red]{sqrt(2*pi) * exp(-((x-5)^2)/2)};
+\addplot[domain = 0:10, restrict y to domain = 0:10, samples =
+400, color = blue]{exp(x)/((1+exp(x))^2)};
+\end{axis}
+\end{tikzpicture}
+\end{center}

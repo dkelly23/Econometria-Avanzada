@@ -215,6 +215,9 @@
 \newcommand\un[2]{\underset{#2}{#1}}
 \newcommand\ov[2]{\overset{#2}{#1}}
 \newcommand\mn[1]{\mathbf{#1}}
+\newcommand\dist[0]{\hspace{0.25cm} \ov{\to}{d} \hspace{0.25cm}}
+\newcommand\nor[2]{\text{N}\( #1, #2\)}
+\newcommand\To[0]{ \hspace{1cm} \Rightarrow \hspace{1cm} }
 
 % Variable Commands
 \newcommand\D[0]{\Delta}

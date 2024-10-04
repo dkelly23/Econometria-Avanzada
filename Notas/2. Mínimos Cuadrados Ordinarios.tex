@@ -1,3 +1,125 @@
 \chapter{Mínimos Cuadrados Ordinarios}
 
 \section{Planteamiento del Problema de M.C.O.}
+
+Partimos de un modelo \textbf{estructural} o \textbf{poblacional} que refleja la relación de interés \textit{verdadera} y es derivado de la teoría económica. Por el momento, asumimos que la relación de interés corresponde a la proyección lineal de $y$ sobre $\x=(1,x_2,\hdots,x_k)$:
+\eq{y=\b_1+\b_2 x_2 + \hdots + \b_k x_k  + \e}
+
+\defi{Variable Exógena}{
+    Una variable explicativa $x_j\in \x$ es \textbf{exógena} en la \textit{Ecuación 2.1} si $\cov{x_j,\e}=0$, es decir, si no está correlacionada con el término de error. Esto significa que $x_j$ es independiente de los determinantes no observables de $y$.
+}
+
+\bigskip
+Si, por el contrario, $\cov{x_j,\e}\neq 0$, entonces $x_j$ es endógena. En caso que algún $x_j\in\x$ sea endógena, no podemos estimar el efecto causal de $x_j$ por O.L.S. Bajo N-fija, O.L.S. no es insesgado ni consistente. \\
+
+Este problema de endogeneidad normalmente proviene de variables omitidas, error de medición o simultaneidad. Para garantizar que todos los regresores sean exógenos en la \textit{Ecuación 2.1}, asumimos que la Media Condicional del Error es igual a cero:
+\eq{
+    \E{\e|\x}=0 \hspace{1cm} \to \hspace{1cm} \E{\e}=0 \hspace{0.25cm} \& \hspace{0.25cm} \cov{x_j, \e}
+}
+
+\bigskip
+Generalmente, basta un conjunto de supuestos menos restrictivo dado por: 1) $\E{\e}=0$, y 2) $\cov{x_j, \e}$. Estos supuestos no implican el supuesto de Media Condicional Cero, pero lo contrario es cierto.\\
+
+Podemos reescribir el modelo estructural en forma resumida como:
+\eq{
+\un{y}{1\times 1} = \un{\x}{1\times k} \cdot \un{\b}{k\times 1}+ \un{\e}{1\times 1}
+}
+
+\bigskip
+Dónde $\x=(1,x_2,\hdots, x_k)$ y $\b'=(\b_1,\hdots, \b_k)$. Consideremos el caso dónde tenemos una muestra aleatoria de tamaño $N$: $\lbrace (\x_i, y_i): i=1,\hdots, N \rbrace$. Para cada observación, entonces, tenemos:
+\eq{
+y_i=\x_i\b+\e_i
+}
+
+\supo{Esperanza Cero}{
+    La esperanza de $\x'\e$ es cero:
+    \eq{
+    \E{\x'\e}=\[ \begin{array}{c}
+         \E{x_1\e}  \\
+         \vdots \\
+         \E{x_k\e}
+    \end{array} \] = \mathbf{0} \To \begin{array}{l}
+         \E{\e}=0  \\
+         \cov{x_j,\e} = 0, \forall j
+    \end{array}
+    }  
+}
+
+\bigskip
+Sabemos que $x_k\neq 0$, por lo que la única forma de que $\E{x_j \e}=0$ es hacer que $\E{\e}=0$. Podemos reescribir el producto dentro de la esperanza en el \textit{Supuesto 2.1} cómo:
+\open
+\E{\x'\e} & = & \E{(x_1,\hdots,x_k)\e} = \E{x_1\e+\hdots+x_j\e} \\
+\\
+          & = & \E{\dsum{i=1}{k} x_i \e} \\
+          \\
+          & = & \dsum{i=1}{k} x_i \E{\e}
+\close
+
+\bigskip
+En general, la \textit{Ecuación 2.6} solo puede ser cero cuando $\E{\e}=0$. \\
+
+\supo{Rango Completo}{
+La matriz $\x'\x$ es una matriz de rango $k$. Es decir, posee $k$ columnas linealmente independientes:
+\eq{\(\begin{array}{c}
+     x_1  \\
+     \vdots \\
+     x_k
+\end{array}\) \( \begin{array}{c}
+     x_1, \hdots, x_k
+\end{array} \) = 
+\begin{pmatrix}
+    x_1^2 & \hdots & x_1x_k \\
+    \vdots & \vdots & \vdots \\
+    x_kx_1 & \hdots & x_k^2
+\end{pmatrix}
+}
+\bigskip
+Esto implica que $\x'\x$ es una matriz invertible.
+}
+
+\bigskip
+Este supuesto es equivalente a:
+\begin{itemize}
+    \item La matriz $\E{\x'\x}$ es positiva definida e invertible.
+    \item La matriz de varianza-covarianza es no singular.
+    \item Ninguna variable dependiente puede escribirse como combinación lineal de los demás.
+\end{itemize}
+
+Volvamos al modelo poblacional y multiplicamos por la transpuesta del vector $\x$ ($\x'$):
+\eq{\x'y=\x'\x\b+\x'\e \To \E{\x'y}=\b\E{\x'\x}+\E{\x'\e}}
+
+\bigskip
+Por el \textit{Supuesto 2.1}, sabemos que el último término es igual a cero ($\E{\x'\e}=0$), por lo cual, podemos despejar $\b$, a partir de lo cual obtenemos $\mn{b}$, nuestra estimación de $\b$:
+
+\open 
+\E{\x'y} & = & \E{\x'\x}\mn{b} \\
+\\
+\E{\x'\x}^{-1} \E{\x'y} & = & \E{\x'\x}^{-1} \E{\x'\x} \mn{b} \\
+\\
+\mn{b} & = & \E{\x'\x}^{-1} \E{\x'y}
+\close
+
+\bigskip
+Por el principio de analogía, podemos reescribir la última expresión cómo:
+\eq{
+\mn{b} = \( \dfrac{1}{N} \dsum{i=1}{N} \x_i'\x_i \)^{-1} \( \dfrac{1}{N} \dsum{i=1}{N} \x_i'y_i \) & = & (\X'\X)^{-1} \X'\y
+}
+
+\bigskip
+El promedio que aparece en la \textit{Ecuación 2.10} proviene del análogo muestral de la matriz $\x'\x$ y $\x'y$. Finalmente, hacemos la equivalencia con la matriz $\X$, dónde la entrada $\lbrace i,j \rbrace$ corresponde al valor del regresor $j$ para el individuo $i$. El vector $\y$ es el vector de observaciones de la variable dependiente.\\
+
+La \textit{Ecuación 2.10} es equivalente al estimador de $\b$ por O.L.S. Esta resultado también puede obtenerse como solución al problema de minimizar los residuos al cuadrado. A partir del modelo descrito por la \textit{Ecuación 2.3}, podemos definir los valores ajustados de $\y$, que denotamos:
+\eq{\hat{y}=\x'\mn{b}}
+
+Y por consecuencia, los residuos del modelo están dados por:
+\eq{\hat{\e}=y-\hat{y}=y-\x'\mn{b}}
+
+A partir de ello, planteamos la suma de residuos al cuadrado:
+\eq{S(\mn{b})=\dsum{i=1}{N}\hat{\e}^2=\dsum{i=1}{N}(y_i-\x_i'\mn{b})^2}
+
+\bigskip
+Podemos reescribir este problema en términos matriciales cómo:
+\open
+\displaystyle\min_{\mn{b}}S(\mn{b}) & = & \bm{\varepsilon}'\bm{\varepsilon} & = & (\y-\X\mn{b})'(\y-\X\mn{b}) \\
+& & & = & (\y'-\mn{b}\X')(\y-\X\mn{b})
+\close

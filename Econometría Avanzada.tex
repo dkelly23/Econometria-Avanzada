@@ -1,5 +1,14 @@
 \documentclass[esp]{colmex}
 \usepackage{enumitem}
+\setcounter{chapter}{-1}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat = newest}
+\usetikzlibrary{positioning, arrows.meta}
+\usepgfplotslibrary{fillbetween}
+
+\usepackage[sc]{mathpazo}
+\usepackage{bm}
 
 \institute{El Colegio de México}
 \title{Notas de Clase}
@@ -7,6 +16,7 @@
 \author{Daniel Kelly}
 \mail{djsanchez@colmex.mx}
 \date{Invierno 2023}
+
 
 \begin{document}
 
@@ -16,6 +26,7 @@
 \tableofcontents
 \pagebreak
 
+\include{Notas/0. Herramientas Matemáticas}
 \include{Notas/1. Repaso de Estadística}
 \include{Notas/2. Mínimos Cuadrados Ordinarios}
 

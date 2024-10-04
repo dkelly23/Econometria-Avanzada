@@ -17,6 +17,7 @@
 \setbeamercovered{transparent}
 \usepackage{ragged2e}
 \usepackage{circuitikz}
+\useinnertheme{tcolorbox}
 \justifying{
 
 \title{\textbf{1. Repaso de Estadística}}
@@ -40,14 +41,64 @@
 }
 
 \begin{frame}[plain]
-\textbf{Lectura:} Romer (2012), \textit{Advanced Macroeconomics}, Chapter 2: Part B.
+\textbf{Lectura:} Wooldridge (2001), \textit{Econometric Analysis of Cross-Sectional and Panel Data}, Capítulos 1-3.
 \end{frame}
 
 \section{Introducción}
 
-\begin{frame}{Introducción}
+\subsection{Conceptos Preeliminares}
+
+\begin{frame}{Conceptos Preeliminares}
+Sea $y$ una variable aleatoria continua con P.D.F. (función de densidad) dada por $f(y,\theta)$:
+
+\bigskip
+\begin{exampleblock}{Muestra Independiente e Idénticamente Distribuida}
+Sí ${Y_1,\hdots,Y_n}$ es una sucesión de variables aleatorias independientes con P.D.F. común $f(Y_i)$; entonces ${Y_1,\hdots,Y_n}$ es una muestra \textbf{Independiente y Idénticamente Distribuida}.
+\end{exampleblock}
 \end{frame}
 
+\begin{frame}
+    La esperanza condicional de $y$ dado $\x_0$ (un valor particular de $\x$) está dada por 
+\eq{
+    \E{y|\x=\x_0} = \dfrac{1}{f_\x (\x_0)}\int_{-\infty}^{\infty} y f_{\x,y}(y,\x_0)
+}
+\pause
+
+\bigskip
+Si la esperanza de $y$ es finita ($\E{y|x_1,\hdots,x_k}<\infty$), podemos decir que toma una forma funcional específica:
+\eq{
+    \E{y|x_1,\hdots,x_k}=\mu(x_1,\hdots,x_k) \text{ con } \mu:\R^k \to \R
+}
+\end{frame}
+
+\begin{frame}{Ley de Esperanzas Iteradas}
+    Un concepto particularmente útil en econometría es la Ley de Esperanzas Iteradas:
+
+\begin{exampleblock}{Ley de Esperanzas Iteradas}
+    Sea $\mn{w}$ un vector aleatorio. A partir de este vector, definimos una función $\x=f(\mn{w})$. La \textbf{Ley de Esperanzas Iteradas} entonces dice que:
+    \eq{\E{y|\x}=\E{\E{y|\mn{w}}|\x}}
+    Una forma alternativa de frasear la \textbf{LEI} tiene que ver con las medias. Definimos $\mu_1(\mn{w})\equiv \E{y|\mn{w}}$ y  $\mu_2(\x)\equiv \E{y|\mn{x}}$. Entonces:
+    \eq{\mu_2(\x)=\E{\mu_1(\mn{w})|\x}}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+De acuerdo con la teoría que respalde la estimación, $\mu(\cdot)$ puede ser lineal o no, y refleja el cambio en el valor esperado de $y$ ante un cambio en $x_j$, es decir, el \textbf{efecto parcial}:
+\eq{
+    \D \E{y|\x} \approx \pd{ \mu(\x) }{ x_j } \cdot \D x_j
+}    
+
+\pause
+\bigskip
+La derivada de $\mu(\x)$ con respecto a $x_j$ se puede interpretar con el efecto parcial de un cambio unitario en $x_j$ sobre la esperanza condicional ($\D x_j=1$).
+\end{frame}
+
+\begin{frame}{Elasticidad}
+    En el caso de la \textit{elasticidad}, los cambios se miden en términos porcentuales. Recordemos la deifnición:
+    \eq{
+    e_{y,x_j} = \pd{ \mu(\x) }{ x_j } \cdot \dfrac{ x_j }{ \mu(\x) }
+}
+\end{frame}
 
 %% Final page
 \begin{frame}[plain]

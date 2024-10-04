@@ -32,7 +32,7 @@ Si la esperanza de $y$ es finita ($\E{y|x_1,\hdots,x_k}<\infty$), podemos decir 
 }
 
 \bigskip
-De acuerdo con la teoría que respalde la estimación, $\mu(\cdot)$ puede ser lineal o no, y refleja el cambio en el valor esperado de $y$ respecto a un cambio en $x_j$, es decir, el efecto parcial:
+De acuerdo con la teoría que respalde la estimación, $\mu(\cdot)$ puede ser lineal o no, y refleja el cambio en el valor esperado de $y$ ante un cambio en $x_j$, es decir, el efecto parcial:
 \eq{
     \D \E{y|\x} \approx \pd{ \mu(\x) }{ x_j } \cdot \D x_j
 }
@@ -247,14 +247,14 @@ Sea $\lbrace \w_i:i=1,2,\hdots \rbrace$ una sucesión de Vectores Aleatorios de 
 
 \bigskip
 Entonces, la sucesión sigue el \textbf{Teorema del Limite Central} (C.L.T.), es decir:
-\eq{\dfrac{1}{\sqrt{N}}\dsum{i=1}{N}\w_i \hspace{0.2cm} \ov{\to}{d} \hspace{0.2cm} N(0,\var{w_i})}
+\eq{\dfrac{1}{\sqrt{N}}\dsum{i=1}{N}\w_i \dist \nor{0}{\var{w_i}}}
 \end{teorema}
 
 \section{Propiedades Asintóticas de los Estimadores}
 
 \subsection{Consistencia}
 
-Sea $\lbrace \t_N:N=1,2,\hdots \rbrace$ una sucesión de estimadores del vector de parámetros $\t$, dónde $N$ es el tamaño muestral. Decimos que $\hat{\t}_N$ es un estimador \textbf{asintóticamente consistente} de $\t$ si para todo valor de $\t$:
+Sea $\lbrace \hat{\t}_N:N=1,2,\hdots \rbrace$ una sucesión de estimadores del vector de parámetros $\t$, dónde $N$ es el tamaño muestral. Decimos que $\hat{\t}_N$ es un estimador \textbf{asintóticamente consistente} de $\t$ si para todo valor de $\t$:
 \eq{\plim{\hat{\t}_N}=\t \hspace{0.5cm} \text{cuando} \hspace{0.5cm} N\to\infty }
 
 \bigskip
@@ -262,4 +262,58 @@ Es decir, conforme crece $N$ ($N\to\infty$), la distribución de $\hat{\t}_N$ es
 
 \subsection{Normalidad}
 
+Sea $\lbrace \hat{\t}_N:N=1,2,\hdots \rbrace$ una sucesión de estimadores del vector de parámetros $\t$, dónde $N$ corresponde al tamaño de la muestra. Decimos que $\t_N$ es $\sqrt{N}$ asintóticamente normal si:
+\eq{
+    \sqrt{N}(\hat{\t}_N-\t) \dist \nor{0}{\mn{V}} 
+}
+
+\bigskip
+Dónde $\mn{V}$ es la matriz de varianza asintótica de $\sqrt{N}(\hat{\t}_N-\t)$. Es decir, $\text{A}\var{\sqrt{N}(\hat{\t}_N-\t)}=\mn{V}$. La normalización por $\sqrt{N}$ proviene del Teorema del Límite Central. A continuación explicamos porque esta propiedad de la distribución se cumple a partir de dicho teorema. \\
+
+\proof{
+El argumento en este caso es análogo al caso de la media que desarrollamos a continuación. Sea $\lbrace \x_N:N=1,2,\hdots \rbrace$ una sucesión de Variables Aleatorias con media $\mu$ y varianza $\sigma^2$. Por el Teorema del Límite Central sabemos que:\\
+
+$\begin{array}{lllllllll}
+     &  &  \x_N=\dfrac{1}{N} \dsum{i=1}{N} x_i \hspace{0.25cm} \ov{\to}{d} \hspace{0.25cm} N \( \mu, \dfrac{\sigma^2}{N} \)
+\end{array}$
+
+\bigskip
+Podemos centrar la distribución restando la media. Posteriormente, normalizamos por la desviación estándar $\sigma/\sqrt{N}$ para obtener:\\
+
+$\begin{array}{lllllllll}
+     &  &  \dfrac{\x_N-\mu}{\sigma/\sqrt{N}} =\sqrt{N} \cdot \dfrac{\x_N-\mu}{\sigma}
+\end{array}$
+
+\bigskip
+El C.L.T. establece que esta cantidad converge en distribución a $N(0, \sigma^2)$. Entonces, eliminando la estandarización tenemos:\\
+
+$\begin{array}{lllllllll}
+     &  &  \sqrt{N} (\x_N-\mu) \dist N(0,\sigma^2)
+\end{array}$
+
+\bigskip
+El mismo resultado se puede generalizar a un estimador genérico \hat{\t} de un parámetro \t. \hspace{0.1cm} 
+}
+
+\bigskip
+Entonces, tratamos a $\hat{\t}_N$ como si se distribuyera $N(0,\mn{V}/N)$. Esta derivación proviene de la siguiente observación:
+\eq{\text{A}\var{\sqrt{N}(\hat{\t}_N-\t)} = N \( A\var{\hat{\t}_N} \) = \mn{V}}
+
+\bigskip
+Si tenemos un estimador $\hat{\mn{V}}$ para $\mn{V}$, entonces el estimador:
+\eq{\widehat{\text{A}\var{\hat{\t}_N}}=\dfrac{\hat{\mn{V}}}{N}}
+
+\bigskip
 \subsection{Eficiencia}
+Consideremos dos estimadores $\hat{\t}_N$ y $\Tilde{\t}_N$ del parámetro $\t$ con varianzas asintóticas:\\
+
+$\begin{array}{llllllllllll}
+     & & A\var{\sqrt{N}(\hat{\t}_N-\t)} = \mn{V} & & & \& & & & A\var{\sqrt{N}(\Tilde{\t}_N-\t)} = \mn{D}
+\end{array}$
+
+\bigskip
+Entonces:
+\begin{itemize}
+    \item $\hat{\t}_N$ es asintóticamente eficiente respecto a $\Tilde{\t}_N$ si $\mn{D}-\mn{V}$ es una matriz positiva semidefinida para cualquier valor de $\t$.
+    \item $\hat{\t}_N$ y $\Tilde{\t}_N$ son equivalentes si tienen la misma distribución y la misma varianza asintótica.
+\end{itemize}

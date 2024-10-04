@@ -233,55 +233,60 @@
 
 
 %% Commands
-\newcommand\blue[1]{{\color{Cerulean}{#1}}}
+% New Commands
+
+% Color Text
+\newcommand\blue[1]{{\color{NavyBlue}{#1}}}
 \newcommand\orange[1]{{\color{RedOrange}{#1}}}
 \newcommand\green[1]{{\color{ForestGreen}{#1}}}
 
-
+% Math Commands
 \newcommand\pd[2]{\dfrac{\partial #1}{\partial #2}}
-
 \newcommand\dsum[2]{\displaystyle\sum_{#1}^{#2}}
-
-\newcommand\mn[1]{\mathbf{#1}}
-
-\newcommand\plim[1]{plim\left[#1\right]}
-
-\newcommand\hbeta[1]{\hat{\beta_{#1}}}
-\newcommand\hdelta[1]{\hat{\delta_{#1}}}
-
+\newcommand\dprod[2]{\displaystyle\prod_{#1}^{#2}}
+\newcommand\plim[1]{\text{plim}\left[#1\right]}
+\newcommand\E[1]{\text{E}\left[#1\right]}
+\newcommand\var[1]{\text{Var}\left[ #1 \right]}
+\newcommand\cov[1]{\text{Cov}\left[ #1 \right]}
+\newcommand\eq[1]{\begin{equation} #1 \end{equation}}
 \newcommand\un[2]{\underset{#2}{#1}}
+\newcommand\ov[2]{\overset{#2}{#1}}
+\newcommand\mn[1]{\mathbf{#1}}
+\newcommand\dist[0]{\hspace{0.25cm} \ov{\to}{d} \hspace{0.25cm}}
+\newcommand\nor[2]{\text{N}\( #1, #2\)}
 
-\newcommand\ols[1]{{\color{Cerulueon}{OLS#1}}}
-\newcommand\iv[1]{{\color{Ceruleon}{IV#1}}}
-\newcommand\stata[1]{\textbf{\color{red}{Comando Stata:}} \textit{#1}}
+% Variable Commands
+\newcommand\D[0]{\Delta}
+\renewcommand{\d}[0]{\delta}
+\renewcommand{\a}[0]{\alpha}
+\renewcommand{\b}[0]{\beta}
+\newcommand{\g}[0]{\gamma}
+\newcommand{\G}[0]{\Gamma}
+\renewcommand{\t}[0]{\theta}
+\newcommand{\T}[0]{\Theta}
+\renewcommand{\L}[0]{\mathcal{L}}
+\renewcommand{\l}{\lambda}
+\newcommand{\e}[0]{\varepsilon}
+\newcommand\R[0]{\mathbb{R}}
 
-\newcommand\eq[1]{\begin{equation}
-#1
-\end{equation}}
-
-
-\newcommand\E[1]{E\left[#1\right]}
-\newcommand\Var[1]{Var\left[ #1 \right]}
-\newcommand\Cov[1]{Cov\left[ #1 \right]}
-
+% Vectors and Matrices
 \newcommand\X[0]{\mn{X}}
 \newcommand\x[0]{\mn{x}}
 \newcommand\Y[0]{\mn{Y}}
 \newcommand\y[0]{\mn{y}}
 \newcommand\Z[0]{\mn{Z}}
 \newcommand\z[0]{\mn{z}}
+\newcommand\W[0]{\mn{W}}
+\newcommand\w[0]{\mn{w}}
 
-\renewcommand{\l}[0]{\lbrace}
-\renewcommand{\r}[0]{\rbrace}
+% Parentheses and Brackets
+\renewcommand{\(}[0]{\left(}
+\renewcommand{\)}[0]{\right)}
+\renewcommand{\[}[0]{\left[}
+\renewcommand{\]}[0]{\right]}
+\renewcommand{\{}[0]{\left\{}
+\renewcommand{\}}[0]{\right\}}
 
-\newcommand\lp{\left(}
-\newcommand\rp{\right)}
-
-\newcommand\lb{\left[}
-\newcommand\rb{\right]}
-
-\renewcommand{\L}[0]{\mathcal{L}}
-\renewcommand{\l}{\lambda}
 
 \logo{\includegraphics[width=.1\textwidth]{Presentaciones/Imágenes/logo.png} }
 
